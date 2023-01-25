@@ -5,10 +5,13 @@ const execSync = require("child_process").execSync;
 
 const runShCommand = async (cmd, dir, test) => {
   if (test) {
+    console.log(dir);
     console.log(cmd);
     return;
   }
   try {
+    console.log(dir);
+    console.log(cmd);
     const { stdout, stderr } = execSync(cmd, { cwd: dir });
     if (stdout) {
       console.log("stdout:", stdout);
