@@ -1,33 +1,52 @@
-const testCmd = "ls -la";
+const config = {};
 
-const enumType = {
+config.testCmd = "ls -la";
+
+config.enumType = {
   loop: 1,
   intLoop: 2,
+  dir: 3,
 };
 
-const locationFolder = "";
-const makeDirList = [
+config.makeDir = [
   {
-    type: enumType.loop,
+    type: config.enumType.loop,
     code: "mkdir {{value}}",
     on: ["prj1", "prj2", "prj3"],
   },
   {
-    type: enumType.intLoop,
+    type: config.enumType.intLoop,
     code: "touch {{value}}",
     dir: ["prj1", "prj2", "prj3"],
     on: ["file1.js", "file2.js", "file3.js"],
   },
+];
+
+config.rmDir = [
   {
-    type: enumType.loop,
+    type: config.enumType.loop,
     code: "rm -rf {{value}}",
     on: ["prj1", "prj2", "prj3"],
   },
 ];
 
-module.exports = {
-  testCmd,
-  enumType,
-  locationFolder,
-  makeDirList,
-};
+config.gitSteps = [
+  //   {
+  //     type: config.enumType.dir,
+  //     code: "git init",
+  //   },
+  //   {
+  //     type: config.enumType.dir,
+  //     code: "git add .",
+  //   },
+  //   {
+  //     type: config.enumType.dir,
+  //     code: "git commit -m 'initial commit'",
+  //   },
+  {
+    type: config.enumType.dir,
+    code: "git reset HEAD~",
+  },
+];
+
+module.exports = config;
