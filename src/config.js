@@ -8,6 +8,13 @@ config.enumType = {
   dir: 3,
 };
 
+config.defaultCommand = [
+  {
+    type: config.enumType.dir,
+    code: "exec zsh",
+  },
+];
+
 config.makeDir = [
   {
     type: config.enumType.loop,
@@ -42,6 +49,7 @@ config.gitAddCommit = (message) => {
     },
   ];
 };
+
 config.gitSteps = [
   ...config.makeDir,
   {
@@ -80,7 +88,7 @@ config.gitStepsMain = [
   ...config.gitAddCommit("added file 5"),
 ];
 
-config.freePropSteps = [
+config.stepsTest = [
   {
     type: config.enumType.dir,
     code: "git checkout main ",
@@ -98,4 +106,23 @@ config.freePropSteps = [
   //     code: "git push",
   //   },
 ];
+
+// config.openMr = (branch, title) => {
+//   return [
+//     {
+//       type: config.enumType.dir,
+//       code: generateMRUrl({
+//         source_branch: branch,
+//         title,
+//         // source_branch: "PIXB-1912/high-vulnerabilities-fix",
+//         // title: "ID:PIXB-1912;DONE:100;HOURS:1; lint fix;",
+//         // assignee_id: "12519421",
+//         // reviewer_id: "12519421",
+//         // scope: "assigned_to_me",
+//         // assign: "12519421",
+//       }),
+//     },
+//   ];
+// };
+
 module.exports = config;

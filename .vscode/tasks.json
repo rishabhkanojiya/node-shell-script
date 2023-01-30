@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "shell",
+      "label": "npm: start",
+      "command": "node src/index.js",
+      "detail": "node src/index.js"
+    }
+  ]
+}
