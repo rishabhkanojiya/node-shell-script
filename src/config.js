@@ -1,3 +1,5 @@
+const { generateMRUrl } = require("./utils/common");
+
 const config = {};
 
 config.testCmd = "ls -la";
@@ -107,22 +109,22 @@ config.stepsTest = [
   //   },
 ];
 
-// config.openMr = (branch, title) => {
-//   return [
-//     {
-//       type: config.enumType.dir,
-//       code: generateMRUrl({
-//         source_branch: branch,
-//         title,
-//         // source_branch: "PIXB-1912/high-vulnerabilities-fix",
-//         // title: "ID:PIXB-1912;DONE:100;HOURS:1; lint fix;",
-//         // assignee_id: "12519421",
-//         // reviewer_id: "12519421",
-//         // scope: "assigned_to_me",
-//         // assign: "12519421",
-//       }),
-//     },
-//   ];
-// };
+config.openMr = (branch, title) => {
+  return [
+    {
+      type: config.enumType.dir,
+      code: generateMRUrl({
+        source_branch: branch,
+        title,
+        // source_branch: "PIXB-1912/high-vulnerabilities-fix",
+        // title: "ID:PIXB-1912;DONE:100;HOURS:1; lint fix;",
+        // assignee_id: "12519421",
+        // reviewer_id: "12519421",
+        // scope: "assigned_to_me",
+        // assign: "12519421",
+      }),
+    },
+  ];
+};
 
 module.exports = config;

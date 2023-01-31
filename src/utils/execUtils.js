@@ -1,12 +1,8 @@
-const util = require("util");
-const config = require("./config");
-// const exec = util.promisify(require("child_process").exec);
+const config = require("../config");
 const execSync = require("child_process").execSync;
-const spawnSync = require("child_process").spawnSync;
 const spawn = require("child_process").spawn;
-const _ = require("lodash");
 
-const runShCommand = async (cmd, dir, test, detach) => {
+const runShCommand = async (cmd, dir, test, detach, delay) => {
   if (test) {
     console.log(dir);
     console.log(cmd);
@@ -24,6 +20,13 @@ const runShCommand = async (cmd, dir, test, detach) => {
         shell: "/bin/zsh",
         detached: true,
       });
+      if (delay) {
+        execSync("sleep 5", {
+          cwd: dir,
+          stdio: "inherit",
+          shell: "/bin/zsh",
+        });
+      }
     } else {
       execSync(cmd, {
         cwd: dir,
@@ -36,27 +39,12 @@ const runShCommand = async (cmd, dir, test, detach) => {
   }
 };
 
-const generateMRUrl = (params) => {
-  let generatedUrl = _.reduce(
-    params,
-    (result, value, key) => {
-      return (
-        result + `&merge_request${encodeURIComponent(`[${key}]`)}=${value}`
-      );
-    },
-    "https://gitlab.com/fynd/regrowth/pixelbin/ui/{{dir}}/-/merge_requests/new?"
-  );
-
-  let url = `open --new -a "Google Chrome" --args "${generatedUrl}"`;
-  return url;
-};
-
 const commandExec = async (dir = "", cmdList, folder = [], test = false) => {
   // cmdList = [...config.defaultCommand, ...cmdList];
   for (let i = 0; i < cmdList.length; i++) {
     const cmd = cmdList[i];
     let iter;
-    let { type, detach } = cmd;
+    let { type, detach, delay } = cmd;
 
     switch (type) {
       case config.enumType.loop:
@@ -65,7 +53,8 @@ const commandExec = async (dir = "", cmdList, folder = [], test = false) => {
             cmd.code.replace("{{value}}", cm),
             dir,
             test,
-            detach
+            detach,
+            delay
           );
         });
         break;
@@ -78,7 +67,8 @@ const commandExec = async (dir = "", cmdList, folder = [], test = false) => {
               cmd.code.replace("{{value}}", cm).replace("{{dir}}", d),
               `${dir}/${d}`,
               test,
-              detach
+              detach,
+              delay
             );
           });
         });
@@ -92,7 +82,8 @@ const commandExec = async (dir = "", cmdList, folder = [], test = false) => {
             cmd.code.replace("{{dir}}", d).replace("{{number}}", 4021 + index),
             `${dir}/${d}`,
             test,
-            detach
+            detach,
+            delay
           );
         });
 
@@ -104,7 +95,11 @@ const commandExec = async (dir = "", cmdList, folder = [], test = false) => {
   }
 };
 
-module.exports = { runShCommand, commandExec, generateMRUrl };
+module.exports = { runShCommand, commandExec };
+
+// const util = require("util");
+// const exec = util.promisify(require("child_process").exec);
+// const spawnSync = require("child_process").spawnSync;
 
 // const runShCommandBak = (cmd, dir, test) => {
 //     return new Promise((resolve, reject) => {

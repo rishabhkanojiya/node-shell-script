@@ -1,5 +1,4 @@
 const config = require("../config");
-const { generateMRUrl } = require("../utils");
 
 const gitAddCommit = (message) => {
   return [
@@ -60,20 +59,32 @@ const vulStep = [
   // ...gitCheckout("x0"),
   // ...gitCheckout("PIXB-1912/high-vulnerabilities-fix", true),
 
-  {
-    type: config.enumType.dir,
-    code: "./run.docker.sh {{number}}",
-    detach: true,
-  },
-  {
-    type: config.enumType.dir,
-    code: "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy:0.36.1 image {{dir}}:latest",
-  },
+  // {
+  //   type: config.enumType.dir,
+  //   code: "./run.docker.sh {{number}}",
+  //   detach: true,
+  //   delay: true,
+  // },
+
+  // {
+  //   type: config.enumType.dir,
+  //   code: "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $HOME/Library/Caches:/root/.cache/ aquasec/trivy:0.36.1 image {{dir}}:latest",
+  // },
   // {
   //   type: config.enumType.dir,
   //   code: "docker stop {{dir}}",
   //   detach: true,
   // },
+  // {
+  //   type: config.enumType.dir,
+  //   code: "npm i",
+  // },
+  {
+    type: config.enumType.dir,
+    code: "./run.local.sh",
+    detach: true,
+  },
+  ...config.openMr("branchTest", "titleTest"),
 
   // {
   //   type: config.enumType.dir,
