@@ -1,11 +1,13 @@
-const { freePropSteps, vulStep } = require("./steps/freeProp");
+// const { freePropSteps, vulStep } = require("./steps/freeProp");
+const { mergeStep } = require("./steps/gitSteps");
 const { commandExec } = require("./utils/execUtils");
 
-let dir = "/Users/rishabhkanojiya/Desktop/Projects/PixelBin/FrontEnd";
 const main = () => {
+  let dir = "/Users/rishabhkanojiya/Desktop/Projects/PixelBin/FrontEnd";
+
   commandExec(
     dir,
-    vulStep,
+    mergeStep,
     ["sai", "suigetsu", "sakura", "sarada", "mitsuki", "satetsu"],
     true
   );
